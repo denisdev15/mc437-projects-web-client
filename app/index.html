@@ -1,0 +1,25 @@
+<!doctype html>
+<html ng-app="app">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+      <meta http-equiv="content-language" content="pt-br" />
+      <title>Product Service</title>
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+      <link rel="stylesheet" type="text/css" href="app.css">
+    </head>
+
+   <body>
+      <div ng-view></div>
+      <script src="/bower_components/angular/angular.min.js"></script>
+      <script src="/bower_components/angular-route/angular-route.min.js"></script>
+
+      <script src="app.js"></script>
+
+      <!-- Load Controllers -->
+      <script src="login/loginController.js"></script>
+      <script src="products/add/productController.js"></script>
+      <script src="products/list/listController.js"></script>
+
+      <!-- <script src="services.js"></script>       -->
+   </body>
+</html>

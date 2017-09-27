@@ -1,0 +1,13 @@
+{
+  "name": "Product",
+  "description": "Provide mc437 products",
+  "version": "1.0.0",
+  "private": false,
+  "dependencies": {
+    "angular": "1.5.x",
+    "angular-mocks": "1.5.x",
+    "angular-resource": "1.5.x",
+    "angular-route": "1.5.x",
+    "bootstrap": "3.3.x"
+  }
+}
