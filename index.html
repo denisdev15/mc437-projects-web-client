@@ -9,16 +9,40 @@
     </head>
 
    <body>
-      <div ng-view></div>
+      <div class="jumbotron">
+         <div class="container">
+            <div class="col-sm-8 col-sm-offset-2">
+               <div ng-class="{ 'alert': flash, 'alert-success': flash.type === 'success', 'alert-danger': flash.type === 'error' }" ng-if="flash" ng-bind="flash.message"></div>
+               <div ng-view></div>
+            </div>
+         </div>
+      </div>
+
+      <div class="credits text-center">
+         <p>
+            <a href="https://github.com/denisdev15/mc437-projects-web-client">Module Product</a>
+        </p>
+         <p>
+            MC437 - Grupo 02
+         </p>
+      </div>
+      <!-- <div ng-view></div> -->
+
       <script src="/bower_components/angular/angular.min.js"></script>
       <script src="/bower_components/angular-route/angular-route.min.js"></script>
 
       <script src="app.js"></script>
 
       <!-- Load Controllers -->
-      <script src="login/loginController.js"></script>
-      <script src="products/add/productController.js"></script>
-      <script src="products/list/listController.js"></script>
+      <script src="app/login/loginController.js"></script>
+      <script src="app/register/registerController.js"></script>
+      <script src="app/products/add/productController.js"></script>
+      <script src="app/products/list/listController.js"></script>
+
+      <!-- Services  -->
+      <script src="app/services/authenticationService.js"></script>
+      <script src="app/services/fakeUserService.js"></script>
+      <script src="app/services/flashService.js"></script>
 
       <!-- <script src="services.js"></script>       -->
    </body>
