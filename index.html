@@ -1,14 +1,15 @@
 <!doctype html>
-<html ng-app="app">
+<html>
    <head>
       <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
       <meta http-equiv="content-language" content="pt-br" />
       <title>Product Service</title>
-      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
-      <link rel="stylesheet" type="text/css" href="app.css">
+      <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" />
+      <!-- <link href="//cdn.rawgit.com/cornflourblue/angular-registration-login-example/master/app-content/app.css" rel="stylesheet" /> -->
+      <link rel="stylesheet" type="text/css" href="app/app.css">
     </head>
 
-   <body>
+   <body ng-app="app">
       <div class="jumbotron">
          <div class="container">
             <div class="col-sm-8 col-sm-offset-2">
@@ -30,8 +31,8 @@
 
       <script src="/bower_components/angular/angular.min.js"></script>
       <script src="/bower_components/angular-route/angular-route.min.js"></script>
-
-      <script src="app.js"></script>
+      <script src="/bower_components/angular-cookies/angular-cookies.min.js"></script>
+      <script src="app/app.js"></script>
 
       <!-- Load Controllers -->
       <script src="app/login/loginController.js"></script>

@@ -1,4 +1,4 @@
-var app = angular.module('app',['ngRoute']);
+var app = angular.module('app', ['ngRoute', 'ngCookies']);
 
 app.config( ['$routeProvider', '$locationProvider', function($routeProvider, $locationProvider)
 {
@@ -23,9 +23,14 @@ app.config( ['$routeProvider', '$locationProvider', function($routeProvider, $lo
     controller  : 'ProductCtrl',
   })
 
+  .when('/products', {
+    templateUrl : 'app/products/listAllProducts/list.html',
+    controller  : 'ListAllProductsCtrl',
+  })
+
   // para a rota '/product', carregaremos o template product.html e o controller 'ProductCtrl'
-  .when('products/list/', {
-    templateUrl : 'app/products/list/list.html',
+  .when('/products/*', {
+    templateUrl : 'app/products/listProduct/list.html',
     controller  : 'ListProductCtrl',
   })
 

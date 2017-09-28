@@ -1,4 +1,5 @@
-app.controller('RegisterCtrl', ['UserService', 'FlashService', '$location', '$rootScope', '$scope', function(UserService, FlashService, $location, $rootScope, $scope) {
+app
+.controller('RegisterCtrl', ['UserService', 'FlashService', '$location', '$rootScope', '$scope', function(UserService, FlashService, $location, $rootScope, $scope) {
   $scope.register = function() {
     $scope.dataLoading = true;
     UserService.Create($scope.user).then(function (response) {
