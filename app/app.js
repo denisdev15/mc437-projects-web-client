@@ -24,14 +24,19 @@ app.config( ['$routeProvider', '$locationProvider', function($routeProvider, $lo
 
   .when('/products', {
     templateUrl : '/app/views/products/listAllProducts/listAllProducts.html',
-    controller  : 'ListAllProductsCtrl',
+    controller : 'ProductCtrl',
   })
 
   // para a rota '/product', carregaremos o template product.html e o controller 'ProductCtrl'
-  // .when('/products/:productId', {
-  //   templateUrl : 'app/products/listProduct/listProduct.html',
-  //   controller  : 'ProductCtrl',
-  // })
+  .when('/product/:productId', {
+    templateUrl : 'app/views/products/listProduct/listProduct.html',
+    controller  : 'ProductCtrl',
+  })
+
+  .when('/product/edit/:productId', {
+    templateUrl : 'app/views/products/edit/editProduct.html',
+    controller  : 'ProductCtrl',
+  })
 
   // caso não seja nenhum desses, redirecione para a rota '/'
   .otherwise ({ redirectTo: '/login' });

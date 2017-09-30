@@ -1,4 +1,4 @@
-<div class="col-md-6 col-md-offset-3">
+<div class="col-md-6 col-md-offset-3" ng-init="getAllProducts()">
 	<h2>Produtos</h2>
   <br/>
 
@@ -10,6 +10,7 @@
         <th><p>Quantidade</p></th>
         <th></th>
         <th></th>
+				<th></th>
       </tr>
 
 
@@ -19,15 +20,14 @@
         <td><p>{{product.stock}}</p></td>
 
         <td>
-          <a href="#/product/:product._id" class="btn btn-link">Ver</a>
+          <a ng-href="#/product/{{product._id}}" class="btn btn-link">Ver</a>
         </td>
         <td>
-          <a href="#/product/edit/:product._id" class="btn btn-link">Editar</a>
+          <a ng-href="#/product/edit/{{product._id}}" class="btn btn-link">Editar</a>
         </td>
-        <!-- <td> -->
-        <!-- Delete link -->
-        <!-- <a href="#/product/:product.id" class="btn btn-link">Delete</a> -->
-        <!-- </td> -->
+				<td>
+          <a ng-click="removeProduct(product._id)" class="btn btn-link">Deletar</a>
+        </td>
       </tr>
     </tbody>
   </table>
