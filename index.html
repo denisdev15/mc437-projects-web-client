@@ -5,11 +5,27 @@
       <meta http-equiv="content-language" content="pt-br" />
       <title>Product Service</title>
       <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" />
-      <!-- <link href="//cdn.rawgit.com/cornflourblue/angular-registration-login-example/master/app-content/app.css" rel="stylesheet" /> -->
       <link rel="stylesheet" type="text/css" href="app/app.css">
     </head>
 
    <body ng-app="app">
+
+      <script src="/bower_components/angular/angular.min.js"></script>
+      <script src="/bower_components/angular-route/angular-route.min.js"></script>
+      <script src="/bower_components/angular-cookies/angular-cookies.min.js"></script>
+      <script src="app/app.js"></script>
+
+      <!-- Load Controllers -->
+      <script src="app/controllers/loginController.js"></script>
+      <script src="app/controllers/registerController.js"></script>
+      <script src="app/controllers/addProductController.js"></script>
+      <script src="app/controllers/listAllProductsController.js"></script>
+
+      <!-- Services  -->
+      <script src="app/services/authenticationService.js"></script>
+      <script src="app/services/fakeUserService.js"></script>
+      <script src="app/services/flashService.js"></script>
+
       <div class="jumbotron">
          <div class="container">
             <div class="col-sm-8 col-sm-offset-2">
@@ -27,24 +43,6 @@
             MC437 - Grupo 02
          </p>
       </div>
-      <!-- <div ng-view></div> -->
 
-      <script src="/bower_components/angular/angular.min.js"></script>
-      <script src="/bower_components/angular-route/angular-route.min.js"></script>
-      <script src="/bower_components/angular-cookies/angular-cookies.min.js"></script>
-      <script src="app/app.js"></script>
-
-      <!-- Load Controllers -->
-      <script src="app/login/loginController.js"></script>
-      <script src="app/register/registerController.js"></script>
-      <script src="app/products/add/productController.js"></script>
-      <script src="app/products/list/listController.js"></script>
-
-      <!-- Services  -->
-      <script src="app/services/authenticationService.js"></script>
-      <script src="app/services/fakeUserService.js"></script>
-      <script src="app/services/flashService.js"></script>
-
-      <!-- <script src="services.js"></script>       -->
    </body>
 </html>

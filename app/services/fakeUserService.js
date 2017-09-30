@@ -1,116 +1,121 @@
-'use strict';
+(function() {
+  'use strict';
 
-app
-.factory('UserService', UserService);
+  var app = angular.module('app');
 
-UserService.$inject = ['$timeout', '$filter', '$q'];
-function UserService($timeout, $filter, $q) {
+  app
+  .factory('UserService', UserService);
 
-  var service = {};
+  UserService.$inject = ['$timeout', '$filter', '$q'];
+  function UserService($timeout, $filter, $q) {
 
-  service.GetAll = GetAll;
-  service.GetById = GetById;
-  service.GetByUsername = GetByUsername;
-  service.Create = Create;
-  service.Update = Update;
-  service.Delete = Delete;
+    var service = {};
 
-  return service;
+    service.GetAll = GetAll;
+    service.GetById = GetById;
+    service.GetByUsername = GetByUsername;
+    service.Create = Create;
+    service.Update = Update;
+    service.Delete = Delete;
 
-  function GetAll() {
-    var deferred = $q.defer();
-    deferred.resolve(getUsers());
-    return deferred.promise;
-  }
+    return service;
 
-  function GetById(id) {
-    var deferred = $q.defer();
-    var filtered = $filter('filter')(getUsers(), { id: id });
-    var user = filtered.length ? filtered[0] : null;
-    deferred.resolve(user);
-    return deferred.promise;
-  }
+    function GetAll() {
+      var deferred = $q.defer();
+      deferred.resolve(getUsers());
+      return deferred.promise;
+    }
 
-  function GetByUsername(username) {
-    var deferred = $q.defer();
-    var filtered = $filter('filter')(getUsers(), { username: username });
-    var user = filtered.length ? filtered[0] : null;
-    deferred.resolve(user);
-    return deferred.promise;
-  }
+    function GetById(id) {
+      var deferred = $q.defer();
+      var filtered = $filter('filter')(getUsers(), { id: id });
+      var user = filtered.length ? filtered[0] : null;
+      deferred.resolve(user);
+      return deferred.promise;
+    }
 
-  function Create(user) {
-    var deferred = $q.defer();
+    function GetByUsername(username) {
+      var deferred = $q.defer();
+      var filtered = $filter('filter')(getUsers(), { username: username });
+      var user = filtered.length ? filtered[0] : null;
+      deferred.resolve(user);
+      return deferred.promise;
+    }
 
-    // simulate api call with $timeout
-    $timeout(function () {
-      GetByUsername(user.username)
-      .then(function (duplicateUser) {
-        if (duplicateUser !== null) {
-          deferred.resolve({ success: false, message: 'Username "' + user.username + '" is already taken' });
-        } else {
-          var users = getUsers();
+    function Create(user) {
+      var deferred = $q.defer();
 
-          // assign id
-          var lastUser = users[users.length - 1] || { id: 0 };
-          user.id = lastUser.id + 1;
+      // simulate api call with $timeout
+      $timeout(function () {
+        GetByUsername(user.username)
+        .then(function (duplicateUser) {
+          if (duplicateUser !== null) {
+            deferred.resolve({ success: false, message: 'Email "' + user.username + '" já foi escolhido.' });
+          } else {
+            var users = getUsers();
 
-          // save to local storage
-          users.push(user);
-          setUsers(users);
+            // assign id
+            var lastUser = users[users.length - 1] || { id: 0 };
+            user.id = lastUser.id + 1;
 
-          deferred.resolve({ success: true });
+            // save to local storage
+            users.push(user);
+            setUsers(users);
+
+            deferred.resolve({ success: true });
+          }
+        });
+      }, 1000);
+
+      return deferred.promise;
+    }
+
+    function Update(user) {
+      var deferred = $q.defer();
+
+      var users = getUsers();
+      for (var i = 0; i < users.length; i++) {
+        if (users[i].id === user.id) {
+          users[i] = user;
+          break;
         }
-      });
-    }, 1000);
-
-    return deferred.promise;
-  }
-
-  function Update(user) {
-    var deferred = $q.defer();
-
-    var users = getUsers();
-    for (var i = 0; i < users.length; i++) {
-      if (users[i].id === user.id) {
-        users[i] = user;
-        break;
       }
+      setUsers(users);
+      deferred.resolve();
+
+      return deferred.promise;
     }
-    setUsers(users);
-    deferred.resolve();
 
-    return deferred.promise;
-  }
+    function Delete(id) {
+      var deferred = $q.defer();
 
-  function Delete(id) {
-    var deferred = $q.defer();
-
-    var users = getUsers();
-    for (var i = 0; i < users.length; i++) {
-      var user = users[i];
-      if (user.id === id) {
-        users.splice(i, 1);
-        break;
+      var users = getUsers();
+      for (var i = 0; i < users.length; i++) {
+        var user = users[i];
+        if (user.id === id) {
+          users.splice(i, 1);
+          break;
+        }
       }
-    }
-    setUsers(users);
-    deferred.resolve();
+      setUsers(users);
+      deferred.resolve();
 
-    return deferred.promise;
-  }
-
-  // private functions
-
-  function getUsers() {
-    if(!localStorage.users){
-      localStorage.users = JSON.stringify([]);
+      return deferred.promise;
     }
 
-    return JSON.parse(localStorage.users);
+    // private functions
+
+    function getUsers() {
+      if(!localStorage.users){
+        localStorage.users = JSON.stringify([]);
+      }
+
+      return JSON.parse(localStorage.users);
+    }
+
+    function setUsers(users) {
+      localStorage.users = JSON.stringify(users);
+    }
   }
 
-  function setUsers(users) {
-    localStorage.users = JSON.stringify(users);
-  }
-}
+})();

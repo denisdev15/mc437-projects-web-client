@@ -1,0 +1,40 @@
+<div class="col-md-6 col-md-offset-3">
+	<h2>Produtos</h2>
+  <br/>
+
+  <table ng-if="products.length > 0">
+    <tbody>
+      <tr>
+        <th><p>Nome</p></th>
+        <th><p>Marca</p></th>
+        <th><p>Quantidade</p></th>
+        <th></th>
+        <th></th>
+      </tr>
+
+
+      <tr ng-repeat="product in products | orderBy : 'name'">
+        <td><p>{{product.name}}</p></td>
+        <td><p>{{product.brand}}</p></td>
+        <td><p>{{product.stock}}</p></td>
+
+        <td>
+          <a href="#/product/:product._id" class="btn btn-link">Ver</a>
+        </td>
+        <td>
+          <a href="#/product/edit/:product._id" class="btn btn-link">Editar</a>
+        </td>
+        <!-- <td> -->
+        <!-- Delete link -->
+        <!-- <a href="#/product/:product.id" class="btn btn-link">Delete</a> -->
+        <!-- </td> -->
+      </tr>
+    </tbody>
+  </table>
+
+  <div ng-if="products.length == 0">
+    <span>Nenhum produto adicionado ainda.</span>
+    <a href="#/products/add" class="btn btn-link">Adicionar Produto</a>
+  </div>
+
+</div>

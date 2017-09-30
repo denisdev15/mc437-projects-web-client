@@ -1,50 +1,56 @@
-'use strict';
+(function() {
+  'use strict';
 
-app
-.factory('FlashService', FlashService);
+  var app = angular.module('app');
 
-FlashService.$inject = ['$rootScope'];
-function FlashService($rootScope) {
-  var service = {};
+  app
+  .factory('FlashService', FlashService);
 
-  service.Success = Success;
-  service.Error = Error;
+  FlashService.$inject = ['$rootScope'];
+  function FlashService($rootScope) {
+    var service = {};
 
-  initService();
+    service.Success = Success;
+    service.Error = Error;
 
-  return service;
+    initService();
 
-  function initService() {
-    $rootScope.$on('$locationChangeStart', function () {
-      clearFlashMessage();
-    });
+    return service;
 
-    function clearFlashMessage() {
-      var flash = $rootScope.flash;
-      if (flash) {
-        if (!flash.keepAfterLocationChange) {
-          delete $rootScope.flash;
-        } else {
-          // only keep for a single location change
-          flash.keepAfterLocationChange = false;
+    function initService() {
+      $rootScope.$on('$locationChangeStart', function () {
+        clearFlashMessage();
+      });
+
+      function clearFlashMessage() {
+        var flash = $rootScope.flash;
+        if (flash) {
+          if (!flash.keepAfterLocationChange) {
+            delete $rootScope.flash;
+          } else {
+            // only keep for a single location change
+            flash.keepAfterLocationChange = false;
+          }
         }
       }
     }
+
+    function Success(message, keepAfterLocationChange) {
+      $rootScope.flash = {
+        message: message,
+        type: 'success',
+        keepAfterLocationChange: keepAfterLocationChange
+      };
+    }
+
+    function Error(message, keepAfterLocationChange) {
+      $rootScope.flash = {
+        message: message,
+        type: 'error',
+        keepAfterLocationChange: keepAfterLocationChange
+      };
+    }
   }
 
-  function Success(message, keepAfterLocationChange) {
-    $rootScope.flash = {
-      message: message,
-      type: 'success',
-      keepAfterLocationChange: keepAfterLocationChange
-    };
-  }
 
-  function Error(message, keepAfterLocationChange) {
-    $rootScope.flash = {
-      message: message,
-      type: 'error',
-      keepAfterLocationChange: keepAfterLocationChange
-    };
-  }
-}
+})();

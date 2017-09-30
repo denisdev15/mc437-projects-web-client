@@ -2,40 +2,42 @@ var app = angular.module('app', ['ngRoute', 'ngCookies']);
 
 app.config( ['$routeProvider', '$locationProvider', function($routeProvider, $locationProvider)
 {
-
   $routeProvider
 
   // para a rota '/login', carregaremos o template lgoin.html e o controller 'LoginCtrl'
   .when('/login', {
-    templateUrl : 'app/login/login.html',
+    templateUrl : '/app/views/login/login.html',
     controller  : 'LoginCtrl',
   })
 
   // para a rota '/register', carregaremos o template register.html e o controller 'RegisterCtrl'
   .when('/register', {
-    templateUrl : 'app/register/register.html',
+    templateUrl : '/app/views/register/register.html',
     controller  : 'RegisterCtrl',
   })
 
   // para a rota '/product', carregaremos o template product.html e o controller 'ProductCtrl'
   .when('/products/add', {
-    templateUrl : 'app/products/add/product.html',
+    templateUrl : '/app/views/products/add/addProduct.html',
     controller  : 'ProductCtrl',
   })
 
   .when('/products', {
-    templateUrl : 'app/products/listAllProducts/list.html',
+    templateUrl : '/app/views/products/listAllProducts/listAllProducts.html',
     controller  : 'ListAllProductsCtrl',
   })
 
   // para a rota '/product', carregaremos o template product.html e o controller 'ProductCtrl'
-  .when('/products/*', {
-    templateUrl : 'app/products/listProduct/list.html',
-    controller  : 'ListProductCtrl',
-  })
+  // .when('/products/:productId', {
+  //   templateUrl : 'app/products/listProduct/listProduct.html',
+  //   controller  : 'ProductCtrl',
+  // })
 
   // caso não seja nenhum desses, redirecione para a rota '/'
   .otherwise ({ redirectTo: '/login' });
+
+  // remove o # da url
+  // $locationProvider.html5Mode(true);
 
   run.$inject = ['$rootScope', '$location', '$cookies', '$http'];
   function run($rootScope, $location, $cookies, $http) {
