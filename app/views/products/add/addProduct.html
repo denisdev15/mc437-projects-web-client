@@ -8,7 +8,8 @@
 		</div>
 		<div class="form-group">
 			<label for="category">Categoria</label>
-			<input type="text" name="category" id="category" class="form-control" ng-model="product.category"/>
+			<input type="text" name="category" id="category" class="form-control" ng-model="product.category" required/>
+			<span ng-show="form.name.$dirty && form.name.$error.required" class="help-block">Campo obrigatório.</span>
 		</div>
 		<div class="form-group">
 			<label for="brand">Marca</label>
@@ -20,15 +21,17 @@
 		</div>
 		<div class="form-group">
 			<label for="color">Cor</label>
-			<input type="color" name="color" id="color" class="form-control" ng-model="product.color"/>
+			<input type="text" name="color" id="color" class="form-control" ng-model="product.color"/>
 		</div>
 		<div class="form-group">
 			<label for="year">Ano de fabricação</label>
-			<input type="text" name="year" id="year" class="form-control" ng-model="product.year"/>
+			<input type="text" name="year" id="year" class="form-control" ng-model="product.year" required/>
+			<span ng-show="form.name.$dirty && form.name.$error.required" class="help-block">Campo obrigatório.</span>
 		</div>
 		<div class="form-group">
-			<label for="weight">Peso</label>
-			<input type="text" name="weight" id="weight" class="form-control" ng-model="product.weight"/>
+			<label for="weight">Peso (Kg)</label>
+			<input type="text" name="weight" id="weight" class="form-control" ng-model="product.weight" required/>
+			<span ng-show="form.name.$dirty && form.name.$error.required" class="help-block">Campo obrigatório.</span>
 		</div>
 		<div class="form-group">
 			<label for="dimensions">Dimensões</label>

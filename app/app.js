@@ -1,6 +1,8 @@
+//TODO Apos editar ou adicionar produto -> ir para a tela de list product
+
 var app = angular.module('app', ['ngRoute', 'ngCookies']);
 
-app.config( ['$routeProvider', '$locationProvider', function($routeProvider, $locationProvider)
+app.config( ['$routeProvider', '$locationProvider', '$httpProvider', function($routeProvider, $locationProvider, $httpProvider)
 {
   $routeProvider
 
@@ -40,6 +42,12 @@ app.config( ['$routeProvider', '$locationProvider', function($routeProvider, $lo
 
   // caso não seja nenhum desses, redirecione para a rota '/'
   .otherwise ({ redirectTo: '/login' });
+
+  $httpProvider.defaults.headers.common = {};
+  $httpProvider.defaults.headers.post = {};
+  $httpProvider.defaults.headers.put = {};
+  $httpProvider.defaults.headers.patch = {};
+  $httpProvider.defaults.headers.del = {};
 
   // remove o # da url
   // $locationProvider.html5Mode(true);
