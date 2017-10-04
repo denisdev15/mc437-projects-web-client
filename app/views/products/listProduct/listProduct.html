@@ -1,11 +1,14 @@
 <div class="col-md-6 col-md-offset-3" ng-init="getProduct()">
+  <a ng-href="#/products">
+    <button class="btn btn-primary pull-right">Home</button>
+  </a>
 	<h2>Produto</h2>
   <br/>
 
   <div ng-if="product !== {} || !dataLoading">
     <table border="1">
       <tr ng-repeat="(key, val) in product">
-        <th >{{key}}</th>
+        <th>{{key}}</th>
         <td>{{val}}</td>
       </tr>
     </table>

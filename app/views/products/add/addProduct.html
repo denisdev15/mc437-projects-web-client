@@ -1,5 +1,9 @@
-<div class="col-md-6 col-md-offset-3">
+<div class="col-md-6 col-md-offset-3" ng-init="init()">
+	<a ng-href="#/products">
+		<button class="btn btn-primary pull-right">Home</button>
+	</a>
 	<h2>Registrar Produto</h2>
+	<br />
 	<form name="form" ng-submit="createProduct()" role="form">
 		<div class="form-group" ng-class="{ 'has-error': form.name.$dirty && form.name.$error.required }">
 			<label for="name">Nome</label>

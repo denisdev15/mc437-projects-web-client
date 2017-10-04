@@ -5,10 +5,15 @@
   var url = 'http://localhost:3000/';
 
   app
-  .controller('ProductCtrl', ['$http', '$log', '$scope', '$routeParams', '$location', function($http, $log, $scope, $routeParams, $location) {
+  .controller('ProductCtrl', ['$http', '$log', '$scope', '$routeParams', '$location', 'FlashService', '$window', function($http, $log, $scope, $routeParams, $location, FlashService, $window) {
     $scope.product = {};
     $scope.products = [];
     $scope.dataLoading = false;
+
+    $scope.init = function() {
+      $scope.product = {};
+      $scope.dataLoading = false;
+    }
 
     $scope.getAllProducts = function() {
       $scope.dataLoading = true;
@@ -28,28 +33,27 @@
 
     $scope.createProduct = function() {
       $scope.dataLoading = true;
-      $log.info($scope.product);
 
       if($scope.product.enabled === undefined) {
         $scope.product.enabled = false;
       }
 
-      // var data = JSON.stringify($scope.product);
-      // $log.info(data);
-      // var config = {
-      //   headers : {
-      //     'Content-Type': 'application/json;charset=utf-8;'
-      //   }
-      // }
-
-      $http.post(url + 'products', $scope.product)
+      console.log($scope.product);
+      $http({
+        method: 'POST',
+        url: url + 'products',
+        data: $scope.product,
+        headers: {'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'}
+      })
       .success(function(response) {
         if(! response.errors) {
-          $scope.dataLoading = false;
           $log.info(response);
-          $location.path('/product/' + response.productId);
-          $scope.$apply();
+          $location.path('/product/' + response._id);
         }
+        else {
+          FlashService.Error(response.message);
+        }
+        $scope.dataLoading = false;
       })
       .error(function(response) {
         $scope.dataLoading = false;
@@ -71,35 +75,34 @@
         $log.error(response);
         $scope.dataLoading = false;
       });
-
-      // $scope.product = {
-      //   "_id": "59a0e0ad046c1110c190d353",
-      //   "name": "Caneca do neymar",
-      //   "__v": 0,
-      //   "enabled": true,
-      //   "stock": 0,
-      //   "dimensions": [
-      //     1,
-      //     1,
-      //     1
-      //   ],
-      //   "brand": "Minha loja",
-      //   "model": "Novo",
-      //   "status": [
-      //     "enabled"
-      //   ],
-      //   "Created_date": "2017-08-26T02:45:01.728Z"
-      // };
     }
 
-    $scope.editProduct = function(payload) {
+    $scope.editProduct = function() {
       $scope.dataLoading = true;
       $scope.productId = $routeParams.productId;
+      $scope.modifiedValues = {};
 
-      $http.put(url + 'products/' + $scope.productId, payload)
-      .success(function() {
+      angular.forEach($scope.form, function(value, key) {
+        if(key[0] == '$') return;
+        console.log(key, value.$pristine);
+
+        if(! value.$pristine) {
+          $scope.modifiedValues[key] = $scope.product[key];
+        }
+      });
+
+      console.log($scope.modifiedValues);
+
+      $http({
+        method: 'PUT',
+        url: url + 'products/' + $scope.productId,
+        data: $scope.modifiedValues,
+        headers: {'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'}
+      })
+      .success(function(response) {
         $scope.dataLoading = false;
         $log.info(response);
+        $location.path('/product/' + $scope.productId);
       })
       .error(function(response) {
         $scope.dataLoading = false;
@@ -111,12 +114,14 @@
       $scope.dataLoading = true;
 
       $http.delete(url + 'products/' + productId)
-      .success(function() {
-        $route.reload();
+      .success(function(response) {
+        $window.location.href = '/#/products';
+        FlashService.Success(response.message);
         $scope.dataLoading = false;
         $log.info(response);
       })
       .error(function(response) {
+        FlashService.Error(response.message);
         $scope.dataLoading = false;
         $log.error(response);
       });
