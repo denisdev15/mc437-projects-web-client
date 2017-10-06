@@ -7,9 +7,48 @@
 
   <div ng-if="product !== {} || !dataLoading">
     <table border="1">
-      <tr ng-repeat="(key, val) in product">
-        <th>{{key}}</th>
-        <td>{{val}}</td>
+      <th>ID do Produto</th>
+        <td>{{product._id}}</td>
+      </tr>
+      <tr>
+        <th>Nome</th>
+        <td>{{product.name}}</td>
+      </tr>
+      <tr>
+        <th>Categoria</th>
+        <td>{{product.category}}</td>
+      </tr>
+      <tr>
+        <th>Marca</th>
+        <td>{{product.brand}}</td>
+      </tr>
+      <tr>
+        <th>Modelo</th>
+        <td>{{product.model}}</td>
+      </tr>
+      <tr>
+        <th>Cor</th>
+        <td>{{product.color}}</td>
+      </tr>
+      <tr>
+        <th>Ano de Fabricação</th>
+        <td>{{product.year}}</td>
+      </tr>
+      <tr>
+        <th>Data de Criação</th>
+        <td>{{product.Created_date}}</td>
+      </tr>
+      <tr>
+        <th>Peso</th>
+        <td>{{product.weight}} kg</td>
+      </tr>
+      <tr>
+        <th>Dimensões</th>
+        <td>{{product.dimensions}} cm</td>
+      </tr>
+      <tr>
+        <th>Produto Disponível</th>
+        <td>{{product.status}}</td>
       </tr>
     </table>
     <br/>

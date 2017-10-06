@@ -6,22 +6,23 @@
 	<h2>Produtos</h2>
   <br/>
 
-  <table ng-if="products.length > 0">
+  <table ng-if="products.length > 0" border="1" min-width='1000px'>
     <tbody>
       <tr>
-        <th><p>Nome</p></th>
-        <th><p>Marca</p></th>
-        <th><p>Quantidade</p></th>
-        <th></th>
-        <th></th>
-				<th></th>
+        <td width='80%' align='center'><p>Nome</p></td>
+        <td width='20%' align='center'><p>Categoria</p></td>
+        <td width='20%' align='center'><p>Modelo</p></td>
+        <td width='15%' align='center'><p>Marca</p></td>
+        <td width='5%' align='center'><p>Quantidade</p></td>
+        <td colspan='3' align='center'><p>Opções</p></td>
+
       </tr>
-
-
       <tr ng-repeat="product in products | orderBy : 'name'">
-        <td><p>{{product.name}}</p></td>
-        <td><p>{{product.brand}}</p></td>
-        <td><p>{{product.stock}}</p></td>
+        <td>{{product.name}}</td>
+        <td>{{product.category}}</td>
+        <td>{{product.model}}</td>
+        <td>{{product.brand}}</td>
+        <td>{{product.stock}}</td>
 
         <td>
           <a ng-href="#/product/{{product._id}}" class="btn btn-link">Ver</a>
