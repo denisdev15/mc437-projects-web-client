@@ -127,6 +127,74 @@
       });
     }
 
+    $scope.disableProduct = function(productId) {
+      $scope.dataLoading = true;
+
+      $http.put(url + 'products/' + productId + '/disable')
+      .success(function(response) {
+        $window.location.href = '/#/products';
+        FlashService.Success('Product disabled.');
+        $scope.dataLoading = false;
+        $log.info(response);
+      })
+      .error(function(response) {
+        FlashService.Error(response.message);
+        $scope.dataLoading = false;
+        $log.error(response);
+      });
+    }
+
+    $scope.enableProduct = function(productId) {
+      $scope.dataLoading = true;
+
+      $http.put(url + 'products/' + productId + '/enable')
+      .success(function(response) {
+        $window.location.href = '/#/products';
+        FlashService.Success('Product enabled.');
+        $scope.dataLoading = false;
+        $log.info(response);
+      })
+      .error(function(response) {
+        FlashService.Error(response.message);
+        $scope.dataLoading = false;
+        $log.error(response);
+      });
+    }
+
+    $scope.updateStock = function() {
+      $scope.dataLoading = true;
+      var updateValue = $scope.stock - $scope.product.stock;
+
+      if(updateValue > 0) {
+        $http.put(url + 'products/' + $scope.product._id + '/increase/stock/' + updateValue)
+        .success(function(response) {
+          location.reload();
+          FlashService.Success('Stock increased.');
+          $scope.dataLoading = false;
+          $log.info(response);
+        })
+        .error(function(response) {
+          FlashService.Error(response.message);
+          $scope.dataLoading = false;
+          $log.error(response);
+        });
+      }
+
+      else {
+        $http.put(url + 'products/' + $scope.product._id + '/decrease/stock/' + Math.abs(updateValue))
+        .success(function(response) {
+          location.reload();
+          FlashService.Success('Stock decreased.');
+          $scope.dataLoading = false;
+          $log.info(response);
+        })
+        .error(function(response) {
+          FlashService.Error(response.message);
+          $scope.dataLoading = false;
+          $log.error(response);
+        });
+      }
+    }
 
   } ]);
 

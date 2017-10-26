@@ -6,7 +6,7 @@
 	<h2>Produtos</h2>
   <br/>
 
-  <table ng-if="products.length > 0" border="1" min-width='1000px'>
+  <table ng-if="products.length > 0" border="1" min-width='1100px'>
     <tbody>
       <tr>
         <td width='80%' align='center'><p>Nome</p></td>
@@ -14,7 +14,8 @@
         <td width='20%' align='center'><p>Modelo</p></td>
         <td width='15%' align='center'><p>Marca</p></td>
         <td width='5%' align='center'><p>Quantidade</p></td>
-        <td colspan='3' align='center'><p>Opções</p></td>
+        <td width='5%' align='center'><p>Disponível</p></td>
+        <td colspan='5' align='center'><p>Opções</p></td>
 
       </tr>
       <tr ng-repeat="product in products | orderBy : 'name'">
@@ -23,12 +24,20 @@
         <td>{{product.model}}</td>
         <td>{{product.brand}}</td>
         <td>{{product.stock}}</td>
+        <td>{{product.enabled}}</td>
 
+        <td>
+          <a ng-click="enableProduct(product._id)" ng-if="!product.enabled" class="btn btn-link">Habilitar</a>
+          <a ng-click="disableProduct(product._id)" ng-if="product.enabled" class="btn btn-link">Desabilitar</a>
+        </td>
         <td>
           <a ng-href="#/product/{{product._id}}" class="btn btn-link">Ver</a>
         </td>
         <td>
           <a ng-href="#/product/edit/{{product._id}}" class="btn btn-link">Editar</a>
+        </td>
+        <td>
+          <a ng-href="#/product/stock/{{product._id}}" class="btn btn-link">Estoque</a>
         </td>
 				<td>
           <a ng-click="removeProduct(product._id)" class="btn btn-link">Deletar</a>

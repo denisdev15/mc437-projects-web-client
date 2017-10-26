@@ -1,0 +1,32 @@
+<div ng-init="getProduct()">
+  <a ng-href="#/products">
+    <button class="btn btn-primary pull-right">Home</button>
+  </a>
+	<h2>Controle de Estoque</h2>
+  <br/>
+
+  <table border="1" min-width='1000px'>
+    <tbody>
+      <tr>
+        <td width='20%' align='center'><p>Nome</p></td>
+        <td width='20%' align='center'><p>Quantidade em estoque</p></td>
+        <td width='60%' align='center'><p>Atualizar estoque</p></td>
+
+      </tr>
+      <tr>
+        <td>{{product.name}}</td>
+        <td>{{product.stock}}</td>
+
+        <td>
+          <form name="form" ng-submit="updateStock()" role="form">
+            <div class="form-group">
+              <input type="text" name="stock" id="stock" class="form-control" ng-model="stock" required/>
+            </div>
+            <button type="submit" ng-disabled="form.$invalid || dataLoading" class="btn btn-primary">Atualizar</button>
+          </form>
+
+        </td>
+    </tbody>
+  </table>
+
+</div>

@@ -40,6 +40,11 @@ app.config( ['$routeProvider', '$locationProvider', '$httpProvider', function($r
     controller  : 'ProductCtrl',
   })
 
+  .when('/product/stock/:productId', {
+    templateUrl : 'app/views/products/stock/stock.html',
+    controller  : 'ProductCtrl',
+  })
+
   // caso não seja nenhum desses, redirecione para a rota '/'
   .otherwise ({ redirectTo: '/login' });
 

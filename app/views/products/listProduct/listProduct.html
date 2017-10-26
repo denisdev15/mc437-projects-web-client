@@ -10,8 +10,8 @@
       <!-- <tr>
         <th>ID do Produto</th>
           <td>{{product._id}}</td>
-        </tr>
-      <tr> -->
+        </tr> -->
+      <tr>
         <th>Nome</th>
         <td>{{product.name}}</td>
       </tr>
@@ -49,14 +49,23 @@
       </tr>
       <tr>
         <th>Produto Disponível</th>
-        <td>{{product.status}}</td>
+        <td>{{product.enabled}}</td>
       </tr>
     </table>
     <br/>
     <br/>
 
+    <a ng-click="disableProduct(product._id)" ng-if="product.enabled">
+      <button class="btn btn-primary">Desabilitar</button>
+    </a>
+    <a ng-click="enableProduct(product._id)" ng-if="!product.enabled">
+      <button class="btn btn-primary">Habilitar</button>
+    </a>
     <a ng-href="#/product/edit/{{product._id}}">
       <button class="btn btn-primary">Editar</button>
+    </a>
+    <a ng-href="#/product/stock/{{product._id}}">
+      <button class="btn btn-primary">Estoque</button>
     </a>
     <a ng-click="removeProduct(product._id)">
       <button class="btn btn-primary">Deletar</button>
