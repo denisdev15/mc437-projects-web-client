@@ -38,12 +38,23 @@
         $scope.product.enabled = false;
       }
 
+      if($scope.product.img) {
+        $scope.product.img = $scope.product.img.replace(" ", "");
+        $scope.product.img = $scope.product.img.split(",");
+      }
+
+      if($scope.product.dimensions) {
+        $scope.product.dimensions = $scope.product.dimensions.replace(" ", "");
+        $scope.product.dimensions = $scope.product.dimensions.split(",");
+      }
+
       console.log($scope.product);
       $http({
         method: 'POST',
         url: url + 'products',
         data: $scope.product,
-        headers: {'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'}
+        processData: false,
+        headers: {'Content-Type': 'application/json'}
       })
       .success(function(response) {
         if(! response.errors) {
@@ -89,6 +100,16 @@
         if(! value.$pristine) {
           $scope.modifiedValues[key] = $scope.product[key];
         }
+
+        if($scope.modifiedValues.img) {
+          $scope.modifiedValues.img = $scope.modifiedValues.img.replace(" ", "");
+          $scope.modifiedValues.img = $scope.modifiedValues.img.split(",");
+        }
+
+        if($scope.modifiedValues.dimensions) {
+          $scope.modifiedValues.dimensions = $scope.modifiedValues.dimensions.replace(" ", "");
+          $scope.modifiedValues.dimensions = $scope.modifiedValues.dimensions.split(",");
+        }
       });
 
       console.log($scope.modifiedValues);
@@ -97,7 +118,8 @@
         method: 'PUT',
         url: url + 'products/' + $scope.productId,
         data: $scope.modifiedValues,
-        headers: {'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'}
+        processData: false,
+        headers: {'Content-Type': 'application/json'}
       })
       .success(function(response) {
         $scope.dataLoading = false;

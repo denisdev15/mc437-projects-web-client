@@ -1,4 +1,4 @@
-<div class="col-md-6 col-md-offset-3" ng-init="getProduct()">
+<div ng-init="getProduct()">
   <a ng-href="#/products">
     <button class="btn btn-primary pull-right">Home</button>
   </a>
@@ -28,6 +28,10 @@
         <td>{{product.model}}</td>
       </tr>
       <tr>
+        <th>Preço</th>
+        <td>{{product.price}}</td>
+      </tr>
+      <tr>
         <th>Cor</th>
         <td>{{product.color}}</td>
       </tr>
@@ -50,6 +54,14 @@
       <tr>
         <th>Produto Disponível</th>
         <td>{{product.enabled}}</td>
+      </tr>
+      <tr>
+        <th>Descrição</th>
+        <td>{{product.description}}</td>
+      </tr>
+      <tr>
+        <th>Imagem</th>
+        <td>{{product.img}}</td>
       </tr>
     </table>
     <br/>
