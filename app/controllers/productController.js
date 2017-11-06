@@ -5,7 +5,7 @@
   var url = 'http://localhost:3000/';
 
   app
-  .controller('ProductCtrl', ['$http', '$log', '$scope', '$routeParams', '$location', 'FlashService', '$window', function($http, $log, $scope, $routeParams, $location, FlashService, $window) {
+  .controller('ProductCtrl', ['$http', '$log', '$scope', '$routeParams', '$location', 'FlashService', '$window', 'UserService', function($http, $log, $scope, $routeParams, $location, FlashService, $window, UserService) {
     $scope.product = {};
     $scope.products = [];
     $scope.dataLoading = false;
@@ -18,57 +18,69 @@
     $scope.getAllProducts = function() {
       $scope.dataLoading = true;
 
-      $http.get(url + 'products')
-      .success(function(response) {
-        $scope.products = response;
-        $scope.dataLoading = false;
-        $log.info(response);
-      })
-      .error(function(response) {
-        $scope.dataLoading = false;
-        $log.error(response);
-      });
+      return UserService.GetById(UserService.GetUserLogged()).then(function(user) {
+        var group = user.group;
 
+        $http.get(url + 'products' + '?group=' + group)
+        .success(function(response) {
+          $scope.products = response;
+          $scope.dataLoading = false;
+          $log.info(response);
+        })
+        .error(function(response) {
+          $scope.dataLoading = false;
+          $log.error(response);
+        });
+      });
     }
 
     $scope.createProduct = function() {
       $scope.dataLoading = true;
 
-      if($scope.product.enabled === undefined) {
-        $scope.product.enabled = false;
-      }
+      return UserService.GetById(UserService.GetUserLogged()).then(function(user) {
+        var group = user.group;
 
-      if($scope.product.img) {
-        $scope.product.img = $scope.product.img.replace(" ", "");
-        $scope.product.img = $scope.product.img.split(",");
-      }
+        $log.warn(group);
 
-      if($scope.product.dimensions) {
-        $scope.product.dimensions = $scope.product.dimensions.replace(" ", "");
-        $scope.product.dimensions = $scope.product.dimensions.split(",");
-      }
-
-      console.log($scope.product);
-      $http({
-        method: 'POST',
-        url: url + 'products',
-        data: $scope.product,
-        processData: false,
-        headers: {'Content-Type': 'application/json'}
-      })
-      .success(function(response) {
-        if(! response.errors) {
-          $log.info(response);
-          $location.path('/product/' + response._id);
+        if($scope.product.enabled === undefined) {
+          $scope.product.enabled = false;
         }
-        else {
-          FlashService.Error(response.message);
+
+        if($scope.product.img) {
+          $scope.product.img = $scope.product.img.replace(" ", "");
+          $scope.product.img = $scope.product.img.split(",");
         }
-        $scope.dataLoading = false;
-      })
-      .error(function(response) {
-        $scope.dataLoading = false;
-        $log.error(response);
+
+        if($scope.product.dimensions) {
+          $scope.product.dimensions = $scope.product.dimensions.replace(" ", "");
+          $scope.product.dimensions = $scope.product.dimensions.split(",");
+        }
+
+        $scope.product.group = group;
+
+        $log.warn($scope.product);
+
+        $http({
+          method: 'POST',
+          url: url + 'products',
+          data: $scope.product,
+          processData: false,
+          headers: {'Content-Type': 'application/json'}
+        })
+        .success(function(response) {
+          if(! response.errors) {
+            $log.info(response);
+            $location.path('/product/' + response._id);
+          }
+          else {
+            FlashService.Error(response.message);
+          }
+          $scope.dataLoading = false;
+        })
+        .error(function(response) {
+          $scope.dataLoading = false;
+          $log.error(response);
+        });
       });
     }
 

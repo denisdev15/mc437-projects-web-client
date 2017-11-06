@@ -25,6 +25,7 @@
         UserService.GetByUsername(username)
         .then(function (user) {
           if (user !== null && user.password === password) {
+            UserService.SetUserLogged(user.id);
             response = { success: true };
           } else {
             response = { success: false, message: 'Email ou senha estão incorretos' };

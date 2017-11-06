@@ -10,6 +10,7 @@
   function UserService($timeout, $filter, $q) {
 
     var service = {};
+    var userLogged;
 
     service.GetAll = GetAll;
     service.GetById = GetById;
@@ -17,6 +18,8 @@
     service.Create = Create;
     service.Update = Update;
     service.Delete = Delete;
+    service.GetUserLogged = GetUserLogged;
+    service.SetUserLogged = SetUserLogged;
 
     return service;
 
@@ -101,6 +104,14 @@
       deferred.resolve();
 
       return deferred.promise;
+    }
+
+    function GetUserLogged() {
+      return userLogged;
+    }
+
+    function SetUserLogged(id) {
+      userLogged = id;
     }
 
     // private functions
