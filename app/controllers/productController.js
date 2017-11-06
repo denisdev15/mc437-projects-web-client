@@ -18,7 +18,7 @@
     $scope.getAllProducts = function() {
       $scope.dataLoading = true;
 
-      return UserService.GetById(UserService.GetUserLogged()).then(function(user) {
+      return UserService.GetById(localStorage.getItem("userLogged")).then(function(user) {
         var group = user.group;
 
         $http.get(url + 'products' + '?group=' + group)
@@ -37,7 +37,7 @@
     $scope.createProduct = function() {
       $scope.dataLoading = true;
 
-      return UserService.GetById(UserService.GetUserLogged()).then(function(user) {
+      return UserService.GetById(localStorage.getItem("userLogged")).then(function(user) {
         var group = user.group;
 
         $log.warn(group);
