@@ -18,7 +18,7 @@
         <td colspan='5' align='center'><p>Opções</p></td>
 
       </tr>
-      <tr ng-repeat="product in products | orderBy : 'name'">
+      <tr ng-repeat="product in products | orderBy : 'name' && '!enabled'">
         <td>{{product.name}}</td>
         <td>{{product.category}}</td>
         <td>{{product.model}}</td>

@@ -58,6 +58,10 @@
 			<span ng-show="form.name.$dirty && form.name.$error.required" class="help-block">Campo obrigatório.</span>
 		</div>
 		<div class="form-group">
+			<label for="highlighted">Produto em destaque</label>
+			<input type="checkbox" name="highlighted" id="highlighted" class="form-control" ng-model="product.highlighted" checked></input>
+		</div>
+		<div class="form-group">
 			<label for="img">Imagem</label>
 			<input type="text" name="img" id="img" class="form-control" ng-model="product.img"/>
 			<span class="help-block">Dica: Esse campo recebe caminhos para imagens separados por virgula. Ex: /link/to/image1,/link/to/image2</span>
