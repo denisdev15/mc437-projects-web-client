@@ -1,5 +1,3 @@
-//TODO Apos editar ou adicionar produto -> ir para a tela de list product
-
 var app = angular.module('app', ['ngRoute', 'ngCookies']);
 
 app.config( ['$routeProvider', '$locationProvider', '$httpProvider', function($routeProvider, $locationProvider, $httpProvider)
@@ -46,7 +44,7 @@ app.config( ['$routeProvider', '$locationProvider', '$httpProvider', function($r
   })
 
   // caso não seja nenhum desses, redirecione para a rota '/'
-  .otherwise ({ redirectTo: '/login' });
+  .otherwise ({ redirectTo: '/products' });
 
   $httpProvider.defaults.headers.common = {};
   $httpProvider.defaults.headers.post = {};
@@ -54,24 +52,23 @@ app.config( ['$routeProvider', '$locationProvider', '$httpProvider', function($r
   $httpProvider.defaults.headers.patch = {};
   $httpProvider.defaults.headers.del = {};
 
-  // remove o # da url
-  // $locationProvider.html5Mode(true);
+}])
+.run(['$rootScope', '$location', '$cookies', '$http', function($rootScope, $location, $cookies, $http) {
+  // keep user logged in after page refresh
 
-  run.$inject = ['$rootScope', '$location', '$cookies', '$http'];
-  function run($rootScope, $location, $cookies, $http) {
-    // keep user logged in after page refresh
-    $rootScope.globals = $cookies.getObject('globals') || {};
-    if ($rootScope.globals.currentUser) {
-      $http.defaults.headers.common['Authorization'] = 'Basic ' + $rootScope.globals.currentUser.authdata;
-    }
-
-    $rootScope.$on('$locationChangeStart', function (event, next, current) {
-      // redirect to login page if not logged in and trying to access a restricted page
-      var restrictedPage = $.inArray($location.path(), ['/login', '/register']) === -1;
-      var loggedIn = $rootScope.globals.currentUser;
-      if (restrictedPage && !loggedIn) {
-        $location.path('/login');
-      }
-    });
+  $rootScope.globals = $cookies.getObject('globals') || {};
+  if ($rootScope.globals.currentUser) {
+    $http.defaults.headers.common['Authorization'] = 'Basic ' + $rootScope.globals.currentUser.authdata;
   }
+
+  $rootScope.$on('$locationChangeStart', function (event, next, current) {
+    // redirect to login page if not logged in and trying to access a restricted page
+    var locationPath = $location.path();
+    var restrictedPage = ['/login', '/register'].indexOf(locationPath) === -1;
+    var loggedIn = $rootScope.globals.currentUser;
+    if (restrictedPage && !loggedIn) {
+      $location.path('/login');
+    }
+  });
+
 }]);
