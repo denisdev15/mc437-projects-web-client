@@ -40,19 +40,17 @@
       return UserService.GetById(localStorage.getItem("userLogged")).then(function(user) {
         var group = user.group;
 
-        $log.warn(group);
-
         if($scope.product.enabled === undefined) {
           $scope.product.enabled = false;
         }
 
         if($scope.product.img) {
-          $scope.product.img = $scope.product.img.replace(" ", "");
+          $scope.product.img = $scope.product.img.replace(/\s/g, "");
           $scope.product.img = $scope.product.img.split(",");
         }
 
         if($scope.product.dimensions) {
-          $scope.product.dimensions = $scope.product.dimensions.replace(" ", "");
+          $scope.product.dimensions = $scope.product.dimensions.replace(/\s/g, "");
           $scope.product.dimensions = $scope.product.dimensions.split(",");
         }
 
