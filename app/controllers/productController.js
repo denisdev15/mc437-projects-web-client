@@ -110,17 +110,17 @@
         if(! value.$pristine) {
           $scope.modifiedValues[key] = $scope.product[key];
         }
-
-        if($scope.modifiedValues.img) {
-          $scope.modifiedValues.img = $scope.modifiedValues.img.replace(" ", "");
-          $scope.modifiedValues.img = $scope.modifiedValues.img.split(",");
-        }
-
-        if($scope.modifiedValues.dimensions) {
-          $scope.modifiedValues.dimensions = $scope.modifiedValues.dimensions.replace(" ", "");
-          $scope.modifiedValues.dimensions = $scope.modifiedValues.dimensions.split(",");
-        }
       });
+
+      if($scope.modifiedValues.img) {
+        $scope.modifiedValues.img = $scope.modifiedValues.img.replace(/\s/g, "");
+        $scope.modifiedValues.img = $scope.modifiedValues.img.split(",");
+      }
+
+      if($scope.modifiedValues.dimensions) {
+        $scope.modifiedValues.dimensions = $scope.modifiedValues.dimensions.replace(/\s/g, "");
+        $scope.modifiedValues.dimensions = $scope.modifiedValues.dimensions.split(",");
+      }
 
       console.log($scope.modifiedValues);
 
